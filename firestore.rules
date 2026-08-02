@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function currentUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isAdminOrHrd() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        currentUserRole() in ['ADMIN', 'HRD'];
+    }
+
+    // Profil pengguna (dibaca saat login untuk menentukan role)
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdminOrHrd());
+      allow list: if isAdminOrHrd();
+      allow create, update: if isAdminOrHrd();
+      allow delete: if isAdminOrHrd();
+    }
+
+    // Sesi absensi (QR code). Semua yang login boleh baca (untuk validasi scan QR),
+    // hanya Admin/HRD yang boleh membuat & mengubah sesi.
+    match /sessions/{sessionId} {
+      allow read: if isSignedIn();
+      allow create, update: if isAdminOrHrd();
+      allow delete: if false;
+    }
+
+    // Catatan kehadiran. Peserta magang hanya boleh baca/tulis data miliknya sendiri,
+    // Admin/HRD boleh membaca semua (untuk dashboard & detail sesi).
+    match /attendance_records/{recordId} {
+      allow read: if isSignedIn() && (resource.data.internId == request.auth.uid || isAdminOrHrd());
+      allow create: if isSignedIn() && request.resource.data.internId == request.auth.uid;
+      allow update: if isSignedIn() && resource.data.internId == request.auth.uid;
+      allow delete: if false;
+    }
+  }
+}

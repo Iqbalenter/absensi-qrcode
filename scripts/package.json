@@ -1,0 +1,11 @@
+{
+  "name": "absensi-qrcode-seed",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "seed": "node seedFirestore.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.0"
+  }
+}

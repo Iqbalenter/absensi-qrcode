@@ -1,0 +1,6 @@
+{
+  "name": "Prima Attendance",
+  "description": "Aplikasi Absensi Magang Berbasis QR Code Sesi untuk PT. Prima Multi Peti Kemas",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
