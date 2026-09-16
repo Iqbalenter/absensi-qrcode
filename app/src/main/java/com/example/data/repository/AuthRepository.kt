@@ -25,4 +25,9 @@ class AuthRepository(
 
         user
     }
+
+    suspend fun sendPasswordReset(email: String): Result<Unit> = runCatching {
+        auth.sendPasswordResetEmail(email).awaitResult()
+        Unit
+    }
 }

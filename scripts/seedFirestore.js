@@ -20,10 +20,7 @@ const auth = admin.auth();
 const db = admin.firestore();
 
 const testUsers = [
-  { email: "admin@sistemabsensi.test", password: "Admin123!", name: "Admin Utama", role: "ADMIN", nim: "-" },
-  { email: "hrd@sistemabsensi.test", password: "Hrd123!", name: "Staff HRD", role: "HRD", nim: "-" },
-  { email: "magang1@sistemabsensi.test", password: "Magang123!", name: "Budi Santoso", role: "MAGANG", nim: "2024100012" },
-  { email: "magang2@sistemabsensi.test", password: "Magang123!", name: "Siti Aminah", role: "MAGANG", nim: "2024100045" },
+  { email: "highstuff77@gmail.com", password: "iqbal123", name: "Iqbal Admin", role: "ADMIN", nim: "-" }
 ];
 
 async function seed() {

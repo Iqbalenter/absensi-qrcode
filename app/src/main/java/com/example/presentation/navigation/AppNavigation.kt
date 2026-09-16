@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.presentation.auth.LoginScreen
+import com.example.presentation.auth.ForgotPasswordScreen
 import com.example.presentation.admin.dashboard.AdminDashboardScreen
 import com.example.presentation.intern.dashboard.InternDashboardScreen
 import com.example.presentation.intern.scanner.ScannerScreen
@@ -31,10 +32,15 @@ fun AppNavigation() {
                             popUpTo("login") { inclusive = true }
                         }
                     }
-                }
+                },
+                onForgotPassword = { navController.navigate("forgot_password") }
             )
         }
-        
+
+        composable("forgot_password") {
+            ForgotPasswordScreen(onBack = { navController.popBackStack() })
+        }
+
         composable("admin_dashboard") {
             AdminDashboardScreen(
                 onNavigateToCreateSession = { navController.navigate("create_session") },

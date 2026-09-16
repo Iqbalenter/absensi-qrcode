@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(onLoginSuccess: (String) -> Unit) {
+fun LoginScreen(onLoginSuccess: (String) -> Unit, onForgotPassword: () -> Unit = {}) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
@@ -154,6 +154,14 @@ fun LoginScreen(onLoginSuccess: (String) -> Unit) {
                     }
                 }
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
+            TextButton(
+                onClick = onForgotPassword,
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text("Lupa Password?", color = OceanBlue)
+            }
 
             if (errorMessage != null) {
                 Spacer(modifier = Modifier.height(12.dp))
